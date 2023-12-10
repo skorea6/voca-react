@@ -37,13 +37,6 @@
       "isDone": true
     },
     {
-      "id": 6,
-      "day": 3,
-      "eng": "pencil",
-      "kor": "연필",
-      "isDone": true
-    },
-    {
       "day": "3",
       "eng": "window",
       "kor": "창문",
@@ -54,7 +47,7 @@
       "day": "3",
       "eng": "house",
       "kor": "집",
-      "isDone": false,
+      "isDone": true,
       "id": 8
     },
     {

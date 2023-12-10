@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface IProps {
   word: IWord;
+  isShownAll: boolean | null;
+  setIsShownAll: React.Dispatch<React.SetStateAction<boolean | null>>;
 }
 
 export interface IWord {
@@ -12,10 +14,34 @@ export interface IWord {
   id: number;
 }
 
-export default function Word({ word: w }: IProps) {
+export default function Word({
+  word: w,
+  isShownAll: shownAll,
+  setIsShownAll: setShownAll,
+}: IProps) {
   const [word, setWord] = useState(w);
   const [isShow, setIsShow] = useState(false);
   const [isDone, setIsDone] = useState(word.isDone);
+
+  const memoizedSetShownAll = useCallback(
+    (value: boolean | null) => {
+      setShownAll((prevShownAll) => {
+        if (prevShownAll !== null) {
+          return null;
+        }
+        return value;
+      });
+    },
+    [setShownAll]
+  );
+
+  useEffect(() => {
+    if (shownAll != null) {
+      console.log("test");
+      setIsShow(shownAll);
+      memoizedSetShownAll(shownAll);
+    }
+  }, [shownAll, memoizedSetShownAll]);
 
   function toggleShow() {
     setIsShow(!isShow);
